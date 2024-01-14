@@ -84,6 +84,31 @@ namespace UtilityLibrary.Extensions
 
             return current;
         }
+        public static DateTime SubtractBusinessDays(this DateTime date, int businessDays)
+        {
+            if (businessDays < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(businessDays), "Number of business days to subtract must be non-negative.");
+            }
+
+            int sign = businessDays >= 0 ? -1 : 1;
+            int remainingBusinessDays = Math.Abs(businessDays);
+
+            while (remainingBusinessDays > 0)
+            {
+                date = date.AddDays(sign);
+
+                // Check if the current day is a business day (Monday to Friday)
+                if (date.DayOfWeek != DayOfWeek.Saturday && date.DayOfWeek != DayOfWeek.Sunday)
+                {
+                    remainingBusinessDays--;
+                }
+            }
+
+            return date;
+        }
+
+
         public static DateTime FirstDayOfMonth(this DateTime current)
         {
             if (current == DateTime.MinValue)
