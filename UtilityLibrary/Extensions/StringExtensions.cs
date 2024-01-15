@@ -117,19 +117,6 @@ namespace UtilityLibrary.Extensions
             }
             return secureString;
         }
-        public static string SafeSubstring(this string? input, int startIndex, int length)
-        {
-            if (input == null)
-                throw new ArgumentNullException(nameof(input));
-
-            if (startIndex < 0 || startIndex >= input.Length)
-                throw new ArgumentOutOfRangeException(nameof(startIndex), "Invalid start index.");
-
-            if (length < 0 || startIndex + length > input.Length)
-                throw new ArgumentOutOfRangeException(nameof(length), "Invalid length.");
-
-            return input.Substring(startIndex, length);
-        }
 
     }
 }
